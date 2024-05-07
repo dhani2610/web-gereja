@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Slider;
+use App\Models\Donasi;
 use Illuminate\Http\Request;
 
-class SliderController extends Controller
+class DonasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data['page_title'] = 'Slider';
-        $data['slider'] = Slider::orderBy('id','desc')->get();
+        $data['page_title'] = 'Donasi';
+        $data['donasi'] = Donasi::orderBy('id','desc')->get();
 
-		return view('slider.index',$data);
+		return view('donasi.index',$data);
     }
 
     /**
@@ -32,14 +32,11 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = new Slider();
-            if ($request->hasFile('foto')) {
-                $image = $request->file('foto');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/img/slider/');
-                $image->move($destinationPath, $name);
-                $data->img = $name;
-            }
+            $data = new Donasi();
+            $data->tanggal = $request->tanggal;
+            $data->nama = $request->nama;
+            $data->deskripsi = $request->deskripsi;
+            $data->jumlah = $request->jumlah;
             $data->save();
 
             return redirect()->back()->with('success','Save data successfully');
@@ -51,7 +48,7 @@ class SliderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Slider $slider)
+    public function show(Donasi $donasi)
     {
         //
     }
@@ -59,7 +56,7 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Slider $slider)
+    public function edit(Donasi $donasi)
     {
         //
     }
@@ -70,14 +67,11 @@ class SliderController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = Slider::find($id);
-            if ($request->hasFile('foto')) {
-                $image = $request->file('foto');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/img/slider/');
-                $image->move($destinationPath, $name);
-                $data->img = $name;
-            }
+            $data = Donasi::find($id);
+            $data->tanggal = $request->tanggal;
+            $data->nama = $request->nama;
+            $data->deskripsi = $request->deskripsi;
+            $data->jumlah = $request->jumlah;
             $data->save();
 
             return redirect()->back()->with('success','Save data successfully');
@@ -92,7 +86,7 @@ class SliderController extends Controller
     public function destroy($id)
     {
         try {
-            $data = Slider::find($id);
+            $data = Donasi::find($id);
             $data->delete();
 
             return redirect()->back()->with('success','Delete data successfully');

@@ -76,7 +76,7 @@ class GaleryController extends Controller
                 $name = time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/img/galery/');
                 $image->move($destinationPath, $name);
-                $data->foto = $name;
+                $data->img = $name;
             }
             $data->save();
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
@@ -64,6 +65,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/slider-store', [SliderController::class, 'store'])->name('slider-store');
 	Route::post('/slider-update/{id}', [SliderController::class, 'update'])->name('slider-update');
 	Route::get('/slider-delete/{id}', [SliderController::class, 'destroy'])->name('slider-delete');
+
+	Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi');
+	Route::post('/donasi-store', [DonasiController::class, 'store'])->name('donasi-store');
+	Route::post('/donasi-update/{id}', [DonasiController::class, 'update'])->name('donasi-update');
+	Route::get('/donasi-delete/{id}', [DonasiController::class, 'destroy'])->name('donasi-delete');
 
 
 	Route::get('/about', [AboutController::class, 'index'])->name('about');

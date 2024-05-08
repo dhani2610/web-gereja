@@ -2,15 +2,21 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DataJemaatController;
 use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\JadwalIbadahController;
+use App\Http\Controllers\ProfilePengurusController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\TestimoniController;
+use App\Http\Controllers\WartaJemaatController;
+use App\Models\WartaJemaat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,18 +33,17 @@ use Illuminate\Support\Facades\Route;
 
 // Route for the home page
 // Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/', function () {
-    // dd(Auth::user());
-    if (Auth::user() == null) {
-        return redirect('/login');
-    }else{
-        return redirect('/dashboard');
-    }
 
-})->name('dashboard');
 
-// Route for the book table page
-Route::get('book-table', [HomeController::class, 'bookTable'])->name('book-table');
+
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('pengurus', [HomeController::class, 'pengurus'])->name('pengurus');
+Route::get('gallery', [HomeController::class, 'galery'])->name('gallery');
+Route::get('jadwal', [HomeController::class, 'jadwal'])->name('jadwal');
+Route::get('jemaat', [HomeController::class, 'jemaat'])->name('jemaat');
+Route::get('daftar-donasi', [HomeController::class, 'donasi'])->name('daftar-donasi');
+Route::get('warta-online', [HomeController::class, 'warta'])->name('warta-online');
 
 // Group of routes that require authentication
 Route::group(['middleware' => 'auth'], function () {
@@ -67,6 +72,30 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/donasi-update/{id}', [DonasiController::class, 'update'])->name('donasi-update');
 	Route::get('/donasi-delete/{id}', [DonasiController::class, 'destroy'])->name('donasi-delete');
 
+	Route::get('/warta-jemaat', [WartaJemaatController    ::class, 'index'])->name('warta-jemaat');
+	Route::post('/warta-jemaat-store', [WartaJemaatController ::class, 'store'])->name('warta-jemaat-store');
+	Route::post('/warta-jemaat-update/{id}', [WartaJemaatController   ::class, 'update'])->name('warta-jemaat-update');
+	Route::get('/warta-jemaat-delete/{id}', [WartaJemaatController    ::class, 'destroy'])->name('warta-jemaat-delete');
+    
+	Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+	Route::post('/faq-store', [FaqController::class, 'store'])->name('faq-store');
+	Route::post('/faq-update/{id}', [FaqController::class, 'update'])->name('faq-update');
+	Route::get('/faq-delete/{id}', [FaqController::class, 'destroy'])->name('faq-delete');
+    
+	Route::get('/jadwal-ibadah', [JadwalIbadahController::class, 'index'])->name('jadwal-ibadah');
+	Route::post('/jadwal-ibadah-store', [JadwalIbadahController::class, 'store'])->name('jadwal-ibadah-store');
+	Route::post('/jadwal-ibadah-update/{id}', [JadwalIbadahController::class, 'update'])->name('jadwal-ibadah-update');
+	Route::get('/jadwal-ibadah-delete/{id}', [JadwalIbadahController::class, 'destroy'])->name('jadwal-ibadah-delete');
+    
+	Route::get('/data-jemaat', [DataJemaatController::class, 'index'])->name('data-jemaat');
+	Route::post('/data-jemaat-store', [DataJemaatController::class, 'store'])->name('data-jemaat-store');
+	Route::post('/data-jemaat-update/{id}', [DataJemaatController::class, 'update'])->name('data-jemaat-update');
+	Route::get('/data-jemaat-delete/{id}', [DataJemaatController::class, 'destroy'])->name('data-jemaat-delete');
+    
+	Route::get('/profile-pengurus', [ProfilePengurusController::class, 'index'])->name('profile-pengurus');
+	Route::post('/profile-pengurus-store', [ProfilePengurusController::class, 'store'])->name('profile-pengurus-store');
+	Route::post('/profile-pengurus-update/{id}', [ProfilePengurusController::class, 'update'])->name('profile-pengurus-update');
+	Route::get('/profile-pengurus-delete/{id}', [ProfilePengurusController::class, 'destroy'])->name('profile-pengurus-delete');
 
 	Route::get('/about', [AboutController::class, 'index'])->name('about');
 	Route::post('/about-store', [AboutController::class, 'store'])->name('about-store');

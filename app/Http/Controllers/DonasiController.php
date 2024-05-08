@@ -33,6 +33,7 @@ class DonasiController extends Controller
     {
         try {
             $data = new Donasi();
+            $data->category = $request->category;
             $data->tanggal = $request->tanggal;
             $data->nama = $request->nama;
             $data->deskripsi = $request->deskripsi;
@@ -68,6 +69,7 @@ class DonasiController extends Controller
     {
         try {
             $data = Donasi::find($id);
+            $data->category = $request->category;
             $data->tanggal = $request->tanggal;
             $data->nama = $request->nama;
             $data->deskripsi = $request->deskripsi;

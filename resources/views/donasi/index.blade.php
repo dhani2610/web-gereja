@@ -33,7 +33,7 @@
     @endif
     <div class="row">
         <div class="col-12">
-            <div class="card mb-4 mx-4">
+            <div class="card mb-4">
                 <div class="card-header pb-0 mb-2">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
@@ -57,6 +57,21 @@
                                         @csrf
                                         <div class="modal-body">
                                             @csrf
+                                            <div class="mb-3">
+                                                <label for="">Category</label>
+                                                <select name="category" class="form-control" required>
+                                                    <option value="Donasi Umum">Donasi Umum</option>
+                                                    <option value="Misi dan Penginjilan">Misi dan Penginjilan</option>
+                                                    <option value="Pelayanan Sosial">Pelayanan Sosial</option>
+                                                    <option value="Pendidikan Agama">Pendidikan Agama</option>
+                                                    <option value="Renovasi dan Pembangunan">Renovasi dan Pembangunan</option>
+                                                    <option value="Bantuan Kebutuhan Khusus">Bantuan Kebutuhan Khusus</option>
+                                                </select>
+                                                
+                                                @error('category')
+                                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                @enderror
+                                            </div>
                                             <div class="mb-3">
                                                 <label for="">Nama Donator</label>
                                                 <input type="text" class="form-control" placeholder="Nama Donator" name="nama"
@@ -112,6 +127,9 @@
                                 ID
                             </th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                Category
+                            </th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                 Nama Donatur
                             </th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -136,13 +154,16 @@
                                     <p class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</p>
                                 </td>
                                 <td class="text-center">
+                                    <p class="text-xs font-weight-bold mb-0">{{ $item->category ?? '-' }}</p>
+                                </td>
+                                <td class="text-center">
                                     <p class="text-xs font-weight-bold mb-0">{{ $item->nama }}</p>
                                 </td>
                                 <td class="text-center">
                                     <p class="text-xs font-weight-bold mb-0">{{ $item->tanggal }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $item->jumlah }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">@currency($item->jumlah)</p>
                                 </td>
                                 <td class="text-center">
                                     <p class="text-xs font-weight-bold mb-0">{{ $item->deskripsi }}</p>
@@ -179,6 +200,21 @@
                           enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="">Category</label>
+                                <select name="category" class="form-control" required>
+                                    <option value="Donasi Umum" {{ $item2->category == 'Donasi Umum' ? 'selected' : '' }}>Donasi Umum</option>
+                                    <option value="Misi dan Penginjilan" {{ $item2->category == 'Misi dan Penginjilan' ? 'selected' : '' }}>Misi dan Penginjilan</option>
+                                    <option value="Pelayanan Sosial" {{ $item2->category == 'Pelayanan Sosial' ? 'selected' : '' }}>Pelayanan Sosial</option>
+                                    <option value="Pendidikan Agama" {{ $item2->category == 'Pendidikan Agama' ? 'selected' : '' }}>Pendidikan Agama</option>
+                                    <option value="Renovasi dan Pembangunan" {{ $item2->category == 'Renovasi dan Pembangunan' ? 'selected' : '' }}>Renovasi dan Pembangunan</option>
+                                    <option value="Bantuan Kebutuhan Khusus" {{ $item2->category == 'Bantuan Kebutuhan Khusus' ? 'selected' : '' }}>Bantuan Kebutuhan Khusus</option>
+                                </select>
+                                
+                                @error('category')
+                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                @enderror
+                            </div>
                             <div class="mb-3">
                                 <label for="">Nama Donator</label>
                                 <input type="text" class="form-control" placeholder="Nama Donator" name="nama"

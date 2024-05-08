@@ -33,7 +33,7 @@
     @endif
     <div class="row">
         <div class="col-12">
-            <div class="card mb-4 mx-4">
+            <div class="card mb-4">
                 <div class="card-header pb-0 mb-2">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
